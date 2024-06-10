@@ -18,10 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(
-          'bg-background min-h-screen font-sans antialiased',
-          inter.className
-        )}
+        className={cn('min-h-screen bg-white antialiased', inter.className)}
       >
         <main className="mx-auto max-w-2xl p-4">{children}</main>
       </body>
