@@ -8,6 +8,18 @@ const nextConfig = {
         port: '',
         pathname: '/image/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'images.squarespace-cdn.com',
+        port: '',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'fujixweekly.files.wordpress.com',
+        port: '',
+        pathname: '**',
+      },
     ],
   },
 };
