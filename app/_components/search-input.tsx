@@ -1,9 +1,18 @@
+import { redirect } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 
 export default function SearchInput() {
+  async function search(formData: FormData) {
+    'use server';
+
+    const query = formData.get('search');
+
+    redirect(!query || query === '' ? '/' : `/?q=${query.toString().trim()}`);
+  }
+
   return (
-    <div className="mx-auto max-w-md">
-      <Input type="text" placeholder="Search" />
-    </div>
+    <form action={search} className="mx-auto max-w-md">
+      <Input name="search" type="text" placeholder="Search" />
+    </form>
   );
 }

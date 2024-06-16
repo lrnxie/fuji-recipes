@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { getRecipeList } from '@/lib/notion';
 import { cn } from '@/lib/utils';
 
-export default async function RecipeList() {
-  const recipeList = await getRecipeList();
+export default async function RecipeList({ query }: { query: string }) {
+  const recipeList = await getRecipeList(query);
 
   if (!recipeList || recipeList.length === 0) {
     return (

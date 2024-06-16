@@ -6,15 +6,48 @@ const notion = new Client({
   auth: NOTION_TOKEN,
 });
 
-export async function getRecipeList() {
+export async function getRecipeList(query: string = '') {
   try {
     const response = await notion.databases.query({
       database_id: NOTION_DATABASE_ID!,
       filter: {
-        property: 'Published',
-        checkbox: {
-          equals: true,
-        },
+        and: [
+          {
+            property: 'Published',
+            checkbox: {
+              equals: true,
+            },
+          },
+          {
+            or: [
+              {
+                property: 'Name',
+                title: {
+                  contains: query,
+                },
+              },
+              {
+                property: 'Film Simulation',
+                select: {
+                  equals: query
+                    .split(' ')
+                    .map(
+                      (word) =>
+                        word.charAt(0).toUpperCase() +
+                        word.slice(1).toLowerCase()
+                    )
+                    .join(' '),
+                },
+              },
+              {
+                property: 'Tags',
+                multi_select: {
+                  contains: query.toLowerCase(),
+                },
+              },
+            ],
+          },
+        ],
       },
       sorts: [
         {
